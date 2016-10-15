@@ -1,0 +1,60 @@
+AppBundle\Entity\User:
+  type: entity
+  constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: url
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    username:
+      type: string
+      length: 150
+      nullable: false
+      unique: true
+    password:
+      type: string
+      length: 255
+      nullable: false
+    salt:
+      type: string
+      length: 32
+      nullable: false
+    full_name:
+      type: string
+      length: 150
+      nullable: false
+    dob:
+      type: datetime
+      nullable: true
+    email:
+      type: string
+      length: 55
+      nullable: true
+    gender:
+      type: string
+      length: 32
+      nullable: true
+    number:
+      type: string
+      length: 32
+      nullable: true
+    picture:
+      type: text
+      nullable: true
+  manyToMany:
+    peopleIFollow:
+      targetEntity: User
+      joinTable:
+        name: following
+        joinColumns:
+          user_id:
+            referencedColumnName: id
+        inverseJoinColumns:
+          followed_user_id:
+            referencedColumnName: id
+  oneToMany:
+    statuses:
+      targetEntity: Status
+      mappedBy: user

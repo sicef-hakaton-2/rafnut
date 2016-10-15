@@ -1,0 +1,7 @@
+all:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
+login_check:
+    pattern:  /app/login-check
+logout:
+    pattern:  /app/logout

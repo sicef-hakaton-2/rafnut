@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}
+        <link href="{{ asset('bundles/app/css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/app/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/app/css/animate.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/app/css/r-style.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/app/css/style.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/app/css/plugins/toastr/toastr.min.css') }}" rel="stylesheet">
+
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body {%block body_class%}{% endblock %}>
+        {% block body %}{% endblock %}
+        {% block javascripts %}
+         <!-- Main scripts -->
+        <script>
+        var updateStatusApiEndpoint = "{{ url("updateStatusApi") }}";
+        var updatePhotoUploadApiEndpoint = "{{ url("picture") }}";
+        var subscribeApiEndPoint = "{{ url("subscribe") }}";
+        var unsubscribeApiEndPoint = "{{ url("unsubscribe") }}";
+        var imgFolderEndpoint = "{{ asset('bundles/app/') }}";
+        </script>
+        <script src="{{ asset('bundles/app/js/jquery-2.1.1.js') }}"></script>
+        <script src="{{ asset('bundles/app/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('bundles/app/js/plugins/metisMenu/jquery.metisMenu.js') }}"></script>
+        <script src="{{ asset('bundles/app/js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
+        <script src="{{ asset('bundles/app/js/inspinia.js') }}"></script>
+        <script src="{{ asset('bundles/app/js/plugins/pace/pace.min.js') }}"></script>
+        <script src="{{ asset('bundles/app/js/app/_R.js') }}"></script>
+        {% endblock %}
+    </body>
+</html>

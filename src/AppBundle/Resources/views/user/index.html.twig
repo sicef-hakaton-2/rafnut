@@ -1,0 +1,15 @@
+{% extends 'AppBundle:user:base.html.twig' %}
+
+{% block body %}
+	<div id="wrapper">
+		<h2>Secured area</h2>
+		{% if app.user %}
+			Logged in user: {{ app.user.username }}
+		{% else %}
+			Not logged in (report this)
+			<a href="{{ url('login') }}">Login</a>
+		{% endif %}
+		<a href="{{ url('logout') }}">Log out</a>
+	</div>
+{% endblock %}
+

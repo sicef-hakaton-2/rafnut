@@ -1,0 +1,216 @@
+{% extends 'AppBundle:user:base.html.twig' %}
+
+{% block body %}
+
+
+<div id="wrapper">
+
+    <nav class="navbar-default navbar-static-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav" id="side-menu">
+                <li class="nav-header">
+                    <div class="dropdown profile-element"> <span>
+                            <img alt="image" class="img-circle" id="dashboardProfileImage" src="{{ app.user.picture }}" style="width:48px; height:48px;" />
+                             </span>
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="clear"> <span class="block m-t-xs" style="margin-top: 10px;"> <strong class="font-bold">{{ app.user.username }}</strong>
+                             </span> </span> </a>
+
+                    </div>
+                </li>
+
+                <li>
+                    <a href="{{ url('updateStatus') }}"><i class="fa fa-home"></i> <span class="nav-label">Update</span> </a>
+                </li>
+
+                <li class="active">
+                    <a href="{{ url('profileChange') }}"><i class="fa fa-user"></i> <span class="nav-label">Profile</span> </a>
+                </li>
+
+
+                <li>
+                    <a href="{{ url('importantInfo') }}"><i class="fa fa-circle"></i> <span class="nav-label">Important places</span> </a>
+                </li>
+
+                <li>
+                    <a href="{{ url('peopleIFollow') }}"><i class="fa fa-group"></i> <span class="nav-label">Following</span> </a>
+                </li>
+                <li>
+                    <a href="{{ url('wow') }}"><i class=" fa fa-location-arrow"></i> <span class="nav-label">Path Tracker</span> </a>
+                </li>
+                
+                <li class="special_link">
+                    <a href="{{ url('listPeople') }}"><i class="fa fa-search"></i> <span class="nav-label">Search</span> </a>
+                </li>
+
+
+
+            </ul>
+
+        </div>
+    </nav>
+
+        <div id="page-wrapper" class="gray-bg">
+        <div class="row border-bottom">
+        <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+
+            <form role="search" class="navbar-form-custom" method="get" action="list-people">
+                <div class="form-group">
+                    <input type="text" placeholder="Search for someone..." class="form-control" name="q" id="top-search" style="width: 400%;">
+                </div>
+                <button class="hidden" type="submit" id="srrrc"><i class="fa fa-search"></i> Search</button>
+
+            </form>
+        </div>
+            <ul class="nav navbar-top-links navbar-right">
+               <li>
+                   <button class="btn btn-primary" type="submit" style=" margin-top: -5px;" onclick="$('#srrrc').click()"><i class="fa fa-search"></i> Search</button>
+                </li>
+                <li>
+                    <a href="{{ url('logout') }}">
+                        <i class="fa fa-sign-out"></i> Log out
+                    </a>
+                </li>
+            </ul>
+
+        </nav>
+        </div>
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <h2 style="margin-top:25px;">Update your profile information</h2>
+                </div>
+                <div class="col-lg-2">
+
+                </div>
+            </div>
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Update your account information</h5>
+                        </div>
+                        <div class="ibox-content" style="padding-bottom: 50px;">
+                               <form action="{{ path('profileChange') }}" method="post" {{ form_enctype(form) }}>
+                                <div class="form-group" style="padding-bottom: 40px;">
+                                    <label class="col-sm-2 control-label" style="font-weight:normal; text-align:left; margin-top: 10px; ">Full Name:</label>
+                                    <div class="col-sm-10"> {{ form_widget(form.full_name, {"attr": {"class": "form-control", "placeholder": "Full Name"}}) }}</div>
+                                </div>
+                                <div class="form-group" style="padding-bottom: 40px;">
+                                    <label class="col-sm-2 control-label" style="font-weight:normal; text-align:left; margin-top: 10px;">E Mail:</label>
+                                    <div class="col-sm-10"> {{ form_widget(form.email, {"attr": {"class": "form-control", "placeholder": "Email"}}) }}</div>
+                                </div>
+                                <div class="form-group" style="padding-bottom: 40px;">
+                                    <label class="col-sm-2 control-label" style="font-weight:normal; text-align:left; margin-top: 10px;">Mobile phone number:</label>
+                                    <div class="col-sm-10"> {{ form_widget(form.number, {"attr": {"class": "form-control", "placeholder": "Phone number"}}) }}</div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-2 col-sm-offset-10" style="padding-right: 35px;">
+                                        {{ form_widget(form.submit, {"attr": {"class": "btn btn-primary", "placeholder": "Full Name"}}) }}
+                                    </div>
+                                </div>
+
+                                {{ form_rest(form) }}
+                               </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Upload your profile photo</h5>
+                        </div>
+                        <div class="ibox-content" style="padding-bottom: 50px;">
+                          <input type="file" accept="image/gif, image/jpeg, image/png" id="uploadImageControl" required="required">
+                          <div class="form-group">
+                            <a href="#GoToTopOfPage" id="updateImageButton" class="btn btn-primary"  style="float: right; ">Update profile photo</a>
+                            <img id="previewImage" src="" style="height: 400px; text-align: center;">
+                          </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="footer">
+            <div class="pull-right">
+                Find your family. <strong>Reunite.</strong>
+            </div>
+            <div>
+                <strong>Copyright</strong> RAFnut 2015
+            </div>
+        </div>
+
+        </div>
+        </div>
+
+
+	<div>
+	</div>
+
+{% endblock %}
+
+{% block javascripts %}
+	{{parent()}}
+	{# geo-location service #}
+  <script src="{{ asset('bundles/app/js/plugins/toastr/toastr.min.js') }}"></script>
+  <script src="{{ asset('bundles/app/js/app/smoothscroll.js') }}"></script>
+	<script>
+		/*
+			*Always include
+		*/
+		var _R = new _R();
+		$( document ).ready(function() {
+      $("#previewImage").hide();
+			$("#uploadImageControl").change(function(){
+        readURL(this);
+      });
+      function readURL(input) {
+         if (input.files && input.files[0]) {
+             var reader = new FileReader();
+
+             reader.onload = function (e) {
+                 var slika = e.target.result;
+                 $("#previewImage").attr("src",slika);
+                 $("#previewImage").fadeIn("slow");
+             }
+
+             reader.readAsDataURL(input.files[0]);
+         }
+      }
+      $("#updateImageButton").click(function(){
+        data = {uri: $("#previewImage").attr("src")}
+        _R.sendPOST(updatePhotoUploadApiEndpoint,data,successPhotoChange,_R.log);
+      });
+
+      function successPhotoChange(data){
+        toastr.options = {
+          "closeButton": true,
+          "debug": false,
+          "progressBar": true,
+          "preventDuplicates": false,
+          "positionClass": "toast-top-full-width",
+          "onclick": null,
+          "showDuration": "400",
+          "hideDuration": "1000",
+          "timeOut": "7000",
+          "extendedTimeOut": "1000",
+          "showEasing": "swing",
+          "hideEasing": "linear",
+          "showMethod": "fadeIn",
+          "hideMethod": "fadeOut"
+        };
+        toastr.success('Success','You have successfully changed your profile image');
+        $("#dashboardProfileImage").attr('src', $("#previewImage").attr("src"));
+      }
+		});
+
+	</script>
+
+{% endblock %}

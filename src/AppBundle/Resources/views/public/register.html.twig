@@ -1,0 +1,90 @@
+{% extends 'AppBundle:user:base.html.twig' %}
+{%block body_class%}
+ class="gray-bg"
+{% endblock %}
+{% block body %}
+
+<div class="middle-box text-center loginscreen   animated fadeInDown">
+        <div>
+            <div>
+
+                <h1 class="logo-name">REFU-G</h1>
+
+            </div>
+            <h3>Register to REFUGI</h3>
+            <p>Create account to see it in action.</p>
+            <form class="m-t" role="form" action="{{ path('register') }}" method="post" {{ form_enctype(form) }}>
+                <div class="form-group">
+                    {{ form_widget(form.username, {"attr": {"class": "form-control", "placeholder": "Username"}}) }}
+                </div>
+                 <div class="form-group">
+                    {{ form_widget(form.email, {"attr": {"class": "form-control", "placeholder": "E-Mail"}}) }}
+                </div>
+
+                <div class="form-group">
+                    {{ form_widget(form.password.first, {"attr": {"class": "form-control", "placeholder": "Password"}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_widget(form.password.second, {"attr": {"class": "form-control", "placeholder": "Repeat Password"}}) }}
+                </div>
+
+                <div class="form-group">
+                    {{ form_widget(form.full_name, {"attr": {"class": "form-control", "placeholder": "Full Name"}}) }}
+                </div>
+
+                 <div class="form-group">
+                    <div class="col-md-4" style="padding: 0px; margin-bottom: 15px;">
+                        {{ form_widget(form.dob.year, {"attr": {"class": "form-control"}}) }}
+                    </div>
+                    <div class="col-md-4" style="padding: 0px; padding-left:5px; padding-right: 5px;">
+                        {{ form_widget(form.dob.month, {"attr": {"class": "form-control"}}) }}
+                    </div>
+                    <div class="col-md-4" style="padding: 0px;">
+                        {{ form_widget(form.dob.day, {"attr": {"class": "form-control"}}) }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {{ form_widget(form.gender, {"attr": {"class": "form-control", "placeholder": "Mobile Phone Number"}}) }}
+                </div>
+
+
+                <div class="form-group">
+                    <div class="row">
+                    <div class="col-md-1" style="padding: 0px; padding-top: 6px; font-size: 16px;padding-left: 25px;">+</div>
+                    <div class="col-md-11" id="phoneNumberValidation">
+                         {{ form_widget(form.number, {"attr": {"class": "form-control", "placeholder": "38166555893"}}) }}
+                    </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                        <div class="checkbox i-checks"><label> <input type="checkbox" required><i></i> Agree the terms and policy </label></div>
+                </div>
+                {{ form_widget(form.submit, {"attr": {"class": "btn btn-primary block full-width m-b"}}) }}
+                <p class="text-muted text-center"><small>Already have an account?</small></p>
+                <a class="btn btn-sm btn-white btn-block" href="{{ path('login') }}">Login</a>
+
+               {{ form_rest(form) }}
+            </form>
+            <p class="m-t"> <small><strong>REFUGI</strong> was made by <strong>RAFnut</strong> at SICEF Hachathon &copy; 2015</small> </p>
+        </div>
+    </div>
+
+
+
+{% endblock %}
+
+{% block javascripts %}
+	{{parent()}}
+  <script>
+  $('#phoneNumberValidation input').keypress(function(e)
+               {
+                 var key_codes = [48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 0, 8];
+
+                 if (!($.inArray(e.which, key_codes) >= 0)) {
+                   e.preventDefault();
+                 }
+               });  </script>
+{% endblock %}

@@ -1,0 +1,130 @@
+{% extends 'AppBundle:user:base.html.twig' %}
+
+{% block body %}
+
+
+<div id="wrapper">
+
+    <nav class="navbar-default navbar-static-side fixed-bar" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav" id="side-menu">
+                <li class="nav-header">
+                    <div class="dropdown profile-element"> <span>
+                           <img alt="image" class="img-circle" id="dashboardProfileImage" src="{{ app.user.picture }}" style="width:48px; height:48px;" />
+                             </span>
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="clear"> <span class="block m-t-xs" style="margin-top: 10px;"> <strong class="font-bold">{{ app.user.username }}</strong>
+                             </span> </span> </a>
+
+                    </div>
+                </li>
+
+                <li>
+                    <a href="{{ url('updateStatus') }}"><i class="fa fa-home"></i> <span class="nav-label">Update</span> </a>
+                </li>
+
+                <li>
+                    <a href="{{ url('profileChange') }}"><i class="fa fa-user"></i> <span class="nav-label">Profile</span> </a>
+                </li>
+
+                <li>
+                    <a href="{{ url('importantInfo') }}"><i class="fa fa-circle"></i> <span class="nav-label">Important places</span> </a>
+                </li>
+
+                <li>
+                    <a href="{{ url('peopleIFollow') }}"><i class="fa fa-group"></i> <span class="nav-label">Following</span> </a>
+                </li>
+                
+                <li>
+                    <a href="{{ url('wow') }}"><i class=" fa fa-location-arrow"></i> <span class="nav-label">Path Tracker</span> </a>
+                </li>
+                <li class="special_link">
+                    <a href="{{ url('listPeople') }}"><i class="fa fa-search"></i> <span class="nav-label">Search</span> </a>
+                </li>
+
+
+
+            </ul>
+
+        </div>
+    </nav>
+        <div id="page-wrapper" class="gray-bg">
+        <div class="row border-bottom">
+        <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+
+        </div>
+            <ul class="nav navbar-top-links navbar-right">
+                <li>
+                    <a href="{{ url('logout') }}">
+                        <i class="fa fa-sign-out"></i> Log out
+                    </a>
+                </li>
+            </ul>
+
+        </nav>
+        </div>
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-content">
+                            <h2>
+                                {{ users | length}} results found for: <span class="text-navy">"{{ query }}"</span>
+                            </h2>
+
+                            <div class="search-form">
+                                <form action="list-people" method="get">
+                                    <div class="input-group">
+                                        <input type="text" placeholder="{{ query }}" name="q" class="form-control input-lg">
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-lg btn-primary" type="submit">
+                                                Search
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                            {% for user in users %}
+                            <div class="hr-line-dashed"></div>
+                            <div class="row">
+                                <div class="col-md-1">
+                                     <img alt="image" class="img-circle m-t-xs img-responsive" src="{{ user.picture }}" style="max-height:70px;">
+                                </div>
+                                <div class="search-result col-md-11">
+                                    <h3><a href="profile/{{user.id}}" >{{ user.fullname }}</a></h3>
+                                    <a href="profile/{{user.id}}" class="search-link"><i class="fa fa-map-marker"></i> Last checked location: <strong> {% if user.statuses|length > 0 %}{{ user.statuses.last.location }}{% else %}N/A{% endif %} </strong></a>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            {% endfor %}
+
+                        </div>
+                    </div>
+                </div>
+        </div>
+        </div>
+        <div class="footer">
+            <div class="pull-right">
+                Find your family. <strong>Reunite.</strong>
+            </div>
+            <div>
+                <strong>Copyright</strong> RAFnut 2015
+            </div>
+        </div>
+
+        </div>
+        </div>
+
+
+	<div>
+
+	</div>
+
+{% endblock %}
+
+{% block javascripts %}
+	{{parent()}}
+{% endblock %}

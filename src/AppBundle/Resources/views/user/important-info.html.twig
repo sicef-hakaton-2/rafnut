@@ -1,0 +1,140 @@
+
+
+
+{% extends 'AppBundle:user:base.html.twig' %}
+
+{% block body %}
+
+
+<div id="wrapper">
+
+    <nav class="navbar-default navbar-static-side fixed-bar" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav" id="side-menu">
+                <li class="nav-header">
+                    <div class="dropdown profile-element"> <span>
+                            <img alt="image" class="img-circle" id="dashboardProfileImage" src="{{ app.user.picture }}" style="width:48px; height:48px;" />
+                             </span>
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="clear"> <span class="block m-t-xs" style="margin-top: 10px;"> <strong class="font-bold">{{ app.user.username }}</strong>
+                             </span> </span> </a>
+
+                    </div>
+                </li>
+
+                <li>
+                    <a href="{{ url('updateStatus') }}"><i class="fa fa-home"></i> <span class="nav-label">Update</span> </a>
+                </li>
+
+                <li>
+                    <a href="{{ url('profileChange') }}"><i class="fa fa-user"></i> <span class="nav-label">Profile</span> </a>
+                </li>
+
+
+                <li class="active">
+                    <a href="{{ url('importantInfo') }}"><i class="fa fa-circle"></i> <span class="nav-label">Important places</span> </a>
+                </li>
+
+                <li>
+                    <a href="{{ url('peopleIFollow') }}"><i class="fa fa-group"></i> <span class="nav-label">Following</span> </a>
+                </li>
+                <li>
+                    <a href="{{ url('wow') }}"><i class=" fa fa-location-arrow"></i> <span class="nav-label">Path Tracker</span> </a>
+                </li>
+                
+                <li class="special_link">
+                    <a href="{{ url('listPeople') }}"><i class="fa fa-search"></i> <span class="nav-label">Search</span> </a>
+                </li>
+
+
+
+            </ul>
+
+        </div>
+    </nav>
+        <div id="page-wrapper" class="gray-bg">
+        <div class="row border-bottom">
+        <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+
+            <form role="search" class="navbar-form-custom" method="get" action="list-people">
+                <div class="form-group">
+                    <input type="text" placeholder="Search for someone..." class="form-control" name="q" id="top-search" style="width: 400%;">
+                </div>
+                <button class="hidden" type="submit" id="srrrc"><i class="fa fa-search"></i> Search</button>
+
+            </form>
+        </div>
+            <ul class="nav navbar-top-links navbar-right">
+               <li>
+                   <button class="btn btn-primary" type="submit" style=" margin-top: -5px;" onclick="$('#srrrc').click()"><i class="fa fa-search"></i> Search</button>
+                </li>
+                <li>
+                    <a href="{{ url('logout') }}">
+                        <i class="fa fa-sign-out"></i> Log out
+                    </a>
+                </li>
+            </ul>
+
+        </nav>
+        </div>
+        <div class="row wrapper border-bottom white-bg page-heading">
+          <div class="col-lg-10">
+            <h2 style="margin-top:25px;">Places of interest in your last area <span id="areaName"></span></h2>
+          </div>
+          <div class="col-lg-2">
+
+          </div>
+        </div>
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                            <div class="google-map" id="mapOfHelpfulPlaces" style="height: 600px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="pull-right">
+                Find your family. <strong>Reunite.</strong>
+            </div>
+            <div>
+                <strong>Copyright</strong> RAFnut 2015
+            </div>
+        </div>
+
+        </div>
+        </div>
+
+
+	<div>
+
+	</div>
+
+{% endblock %}
+
+{% block javascripts %}
+	{{parent()}}
+	{# geo-location service #}
+	<script>
+		/*
+			*Always include
+		*/
+		var _R = new _R();
+
+	</script>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAg3sEJRooa7jDthmCDXY9RY0EOGSTSVec&sensor=false&v=3.7&libraries=places,geometry"></script>
+    <script src="{{ asset('bundles/app/js/app/smoothscroll.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/plugins/toastr/toastr.min.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/app/load_useful_map.js') }}"></script>
+	<script>
+    var LatituteLast = {{ lastStatus.ltd }};
+    var LongituteLast = {{ lastStatus.lng }};
+		$( document ).ready(function() {
+
+				initialize();
+		});
+	</script>
+{% endblock %}

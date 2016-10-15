@@ -1,0 +1,33 @@
+AppBundle\Entity\Status:
+  type: entity
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    note:
+      type: string
+      length: 1024
+      nullable: false
+    lng:
+      type: string
+      length: 32
+      nullable: false
+    ltd:
+      type: string
+      length: 32
+      nullable: false
+    date:
+      type: datetime
+      nullable: false
+    location:
+      type: string
+      length: 155
+  manyToOne:
+    user:
+      targetEntity: User
+      joinColumn:
+        name: user_id
+        referencedColumnName: id
+      inversedBy: statuses
